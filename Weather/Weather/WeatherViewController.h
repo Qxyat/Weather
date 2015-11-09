@@ -1,0 +1,14 @@
+//
+//  WeatherViewController.h
+//  Weather
+//
+//  Created by 邱鑫玥 on 15/11/8.
+//  Copyright © 2015年 qiu. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WeatherViewController : UIViewController
+
+@property (strong,nonatomic)NSString *countyId;
+@end
