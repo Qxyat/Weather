@@ -25,6 +25,11 @@ static NSString *const kCountyEntity=@"County";
     [super viewDidLoad];
     [self loadData];
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[self.navigationController.view viewWithTag:100]removeFromSuperview];
+    [self setTitle:@"区/县"];
+}
 -(void)loadData{
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
@@ -100,9 +105,10 @@ static NSString *const kCountyEntity=@"County";
     cell.detailTextLabel.text=countyList[indexPath.row][kCountyId];
     return cell;
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    NSIndexPath *indexPath=[self.tableView indexPathForCell:sender];
-    WeatherViewController *controller=segue.destinationViewController;
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    WeatherViewController*controller=(WeatherViewController*)appDelegate.deckViewController.centerController;
     controller.countyId=countyList[indexPath.row][kCountyId];
+    [controller refreshView];
 }
 @end

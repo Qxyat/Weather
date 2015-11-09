@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "ProvinceViewController.h"
 #import <AFNetworking.h>
-
+#import "WeatherViewController.h"
 
 @interface AppDelegate ()
 @end
@@ -19,6 +19,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[AFNetworkReachabilityManager sharedManager]startMonitoring];
+    self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    self.deckViewController=[[IIViewDeckController alloc]initWithCenterViewController:
+        [storyboard instantiateViewControllerWithIdentifier:@"weather"]
+        leftViewController:
+        [storyboard instantiateViewControllerWithIdentifier: @"navigation"]];
+    self.deckViewController.leftSize=CGRectGetWidth([UIScreen mainScreen].bounds)*0.333;
+    self.window.rootViewController=self.deckViewController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

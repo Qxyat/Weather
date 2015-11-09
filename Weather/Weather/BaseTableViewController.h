@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UITableViewController (BaseTableViewController)
+@interface BaseTableViewController:UITableViewController
 -(void)showLoading;
 -(void)hideLoading;
 -(void)showError;
 -(void)hideError;
+-(void)setNavigationTitle:(NSString *)title;
 @end

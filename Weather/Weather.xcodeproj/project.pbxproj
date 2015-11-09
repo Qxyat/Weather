@@ -16,11 +16,11 @@
 		412C35A91BEDEDE30042EE13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 412C35A71BEDEDE30042EE13 /* LaunchScreen.storyboard */; };
 		412C35B51BEDF41A0042EE13 /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 412C35B41BEDF41A0042EE13 /* ProvinceViewController.m */; };
 		413E97F71BEE37DA00C1456A /* Error.xib in Resources */ = {isa = PBXBuildFile; fileRef = 413E97F61BEE37DA00C1456A /* Error.xib */; };
-		413E97FA1BEE3FF400C1456A /* UITableViewController+BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 413E97F91BEE3FF400C1456A /* UITableViewController+BaseTableViewController.m */; };
+		413E97FA1BEE3FF400C1456A /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 413E97F91BEE3FF400C1456A /* BaseTableViewController.m */; };
 		418E4CBB1BEF1C94003409C9 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418E4CBA1BEF1C94003409C9 /* CityViewController.m */; };
 		418E4CBE1BEF2CB0003409C9 /* CountyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418E4CBD1BEF2CB0003409C9 /* CountyViewController.m */; };
 		418E4CC11BEF4198003409C9 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418E4CC01BEF4198003409C9 /* WeatherViewController.m */; };
-		41FDD2561BEE2CA200084D69 /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41FDD2551BEE2CA200084D69 /* Loading.xib */; };
+		41F2730D1BF0C3F500A3577C /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41F2730C1BF0C3F500A3577C /* Loading.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,15 +37,15 @@
 		412C35B31BEDF41A0042EE13 /* ProvinceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceViewController.h; sourceTree = "<group>"; };
 		412C35B41BEDF41A0042EE13 /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceViewController.m; sourceTree = "<group>"; };
 		413E97F61BEE37DA00C1456A /* Error.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Error.xib; sourceTree = "<group>"; };
-		413E97F81BEE3FF400C1456A /* UITableViewController+BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewController+BaseTableViewController.h"; sourceTree = "<group>"; };
-		413E97F91BEE3FF400C1456A /* UITableViewController+BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewController+BaseTableViewController.m"; sourceTree = "<group>"; };
+		413E97F81BEE3FF400C1456A /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		413E97F91BEE3FF400C1456A /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		418E4CB91BEF1C94003409C9 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		418E4CBA1BEF1C94003409C9 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
 		418E4CBC1BEF2CB0003409C9 /* CountyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountyViewController.h; sourceTree = "<group>"; };
 		418E4CBD1BEF2CB0003409C9 /* CountyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountyViewController.m; sourceTree = "<group>"; };
 		418E4CBF1BEF4198003409C9 /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
 		418E4CC01BEF4198003409C9 /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
-		41FDD2551BEE2CA200084D69 /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
+		41F2730C1BF0C3F500A3577C /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
 		5278E8CF6C3A8B948E014A50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECD0D72DE5298A659914BB46 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,8 +106,8 @@
 		413E97F31BEE35E500C1456A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				41FDD2551BEE2CA200084D69 /* Loading.xib */,
 				413E97F61BEE37DA00C1456A /* Error.xib */,
+				41F2730C1BF0C3F500A3577C /* Loading.xib */,
 				412C359F1BEDEDE30042EE13 /* Main.storyboard */,
 				412C35A71BEDEDE30042EE13 /* LaunchScreen.storyboard */,
 			);
@@ -119,8 +119,8 @@
 			children = (
 				412C35B31BEDF41A0042EE13 /* ProvinceViewController.h */,
 				412C35B41BEDF41A0042EE13 /* ProvinceViewController.m */,
-				413E97F81BEE3FF400C1456A /* UITableViewController+BaseTableViewController.h */,
-				413E97F91BEE3FF400C1456A /* UITableViewController+BaseTableViewController.m */,
+				413E97F81BEE3FF400C1456A /* BaseTableViewController.h */,
+				413E97F91BEE3FF400C1456A /* BaseTableViewController.m */,
 				418E4CB91BEF1C94003409C9 /* CityViewController.h */,
 				418E4CBC1BEF2CB0003409C9 /* CountyViewController.h */,
 				418E4CBD1BEF2CB0003409C9 /* CountyViewController.m */,
@@ -219,8 +219,8 @@
 			files = (
 				412C35A91BEDEDE30042EE13 /* LaunchScreen.storyboard in Resources */,
 				412C35A61BEDEDE30042EE13 /* Assets.xcassets in Resources */,
-				41FDD2561BEE2CA200084D69 /* Loading.xib in Resources */,
 				412C35A11BEDEDE30042EE13 /* Main.storyboard in Resources */,
+				41F2730D1BF0C3F500A3577C /* Loading.xib in Resources */,
 				413E97F71BEE37DA00C1456A /* Error.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,7 +286,7 @@
 				412C359B1BEDEDE30042EE13 /* AppDelegate.m in Sources */,
 				418E4CBB1BEF1C94003409C9 /* CityViewController.m in Sources */,
 				418E4CBE1BEF2CB0003409C9 /* CountyViewController.m in Sources */,
-				413E97FA1BEE3FF400C1456A /* UITableViewController+BaseTableViewController.m in Sources */,
+				413E97FA1BEE3FF400C1456A /* BaseTableViewController.m in Sources */,
 				412C35981BEDEDE30042EE13 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

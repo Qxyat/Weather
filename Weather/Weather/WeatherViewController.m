@@ -16,18 +16,22 @@
 @implementation WeatherViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
+    //[self loadWeatherDataFromServer];
+}
+-(void)refreshView{
     [self loadWeatherDataFromServer];
 }
 -(void)loadWeatherDataFromServer{
     [self showLoading];
-    NSString * request=[@"http://wthrcdn.etouch.cn/weather_mini?citykey=101**" stringByReplacingOccurrencesOfString:@"**" withString:self.countyId];
+    NSString * request=[@"http://wthrcdn.etouch.cn/WeatherApi?citykey=101**" stringByReplacingOccurrencesOfString:@"**" withString:self.countyId];
     
     AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
-    manager.responseSerializer=[[AFJSONResponseSerializer alloc]init];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/plain", @"text/html",nil];
+    manager.responseSerializer=[[AFHTTPResponseSerializer alloc]init];
+    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/plain", @"text/html",@"text/xml",nil];
     [manager GET:request parameters:nil success:
         ^(AFHTTPRequestOperation *operation,id response){
-            self.temperatureLabel.text=[NSString stringWithFormat:@"%@",response[@"data"][@"wendu"]];
+            NSString *text=[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
+            self.temperatureLabel.text=text;
             [self hideLoading];
         } failure:^(AFHTTPRequestOperation *operation,NSError *error){
             NSLog(@"%@",error);

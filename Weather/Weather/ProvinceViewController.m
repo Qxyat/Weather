@@ -25,7 +25,11 @@ static NSString *const kProvinceEntity=@"Province";
     //[self showError];
     [self loadData];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[self.navigationController.view viewWithTag:100]removeFromSuperview];
+    [self setTitle:@"省"];
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell=[self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.textLabel.text=[provinceList[indexPath.row] valueForKey:kProvinceName];

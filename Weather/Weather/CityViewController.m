@@ -27,6 +27,12 @@ static NSString *const kCityEntity=@"City";
     [super viewDidLoad];
     [self loadData];
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[self.navigationController.view viewWithTag:100]removeFromSuperview];
+    [self setTitle:@"市"];
+}
 -(void)loadData{
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;

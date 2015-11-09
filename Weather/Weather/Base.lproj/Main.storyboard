@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
-        <!--省-->
+        <!--Province View Controller-->
         <scene sceneID="NBm-bn-bNP">
             <objects>
                 <tableViewController id="td2-DN-OaN" customClass="ProvinceViewController" sceneMemberID="viewController">
@@ -52,14 +52,14 @@
                             <outlet property="delegate" destination="td2-DN-OaN" id="uuZ-RM-9Gk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="省" id="Lhp-vN-Qiu"/>
+                    <navigationItem key="navigationItem" id="Lhp-vN-Qiu"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IbV-aM-EUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-659" y="401"/>
         </scene>
-        <!--市-->
+        <!--City View Controller-->
         <scene sceneID="N0W-zr-Bw2">
             <objects>
                 <tableViewController id="BL3-Ix-wIp" customClass="CityViewController" sceneMemberID="viewController">
@@ -106,14 +106,14 @@
                             <outlet property="delegate" destination="BL3-Ix-wIp" id="BBP-F7-yvi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="市" id="f31-xO-rKo"/>
+                    <navigationItem key="navigationItem" id="f31-xO-rKo"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vYS-SF-ir4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-286" y="401"/>
         </scene>
-        <!--区/县-->
+        <!--County View Controller-->
         <scene sceneID="YHw-eY-O0k">
             <objects>
                 <tableViewController id="m19-dg-RVP" customClass="CountyViewController" sceneMemberID="viewController">
@@ -150,9 +150,6 @@
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
-                                <connections>
-                                    <segue destination="YFD-Bf-ASL" kind="show" id="0kJ-5l-nhG"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -160,7 +157,7 @@
                             <outlet property="delegate" destination="m19-dg-RVP" id="kBf-kd-cKW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="区/县" id="iQe-cB-zYo"/>
+                    <navigationItem key="navigationItem" id="iQe-cB-zYo"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go3-zJ-CL4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -170,7 +167,7 @@
         <!--天气-->
         <scene sceneID="CnY-Pc-88K">
             <objects>
-                <viewController id="YFD-Bf-ASL" customClass="WeatherViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="weather" id="YFD-Bf-ASL" customClass="WeatherViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IgA-AK-Clm"/>
                         <viewControllerLayoutGuide type="bottom" id="xFx-OC-0rQ"/>
@@ -198,12 +195,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yaz-cJ-vW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="460" y="401"/>
+            <point key="canvasLocation" x="-1025" y="1036"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l4W-bZ-1C3">
             <objects>
-                <navigationController id="dqJ-uF-4oT" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigation" id="dqJ-uF-4oT" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tFy-cg-Ku3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

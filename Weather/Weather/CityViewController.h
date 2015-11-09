@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UITableViewController+BaseTableViewController.h"
+#import "BaseTableViewController.h"
 
-@interface CityViewController : UITableViewController
+@interface CityViewController : BaseTableViewController
 @property (strong,nonatomic)NSString *provinceId;
 @end

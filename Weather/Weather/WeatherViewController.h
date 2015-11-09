@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WeatherViewController : UIViewController
-
+-(void)refreshView;
 @property (strong,nonatomic)NSString *countyId;
 @end
