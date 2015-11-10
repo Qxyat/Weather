@@ -46,7 +46,6 @@ extern NSString * kId;
     rect.origin=CGPointMake(titleLabelX, 32);
     UILabel *textLabel=[[UILabel alloc]initWithFrame:rect];
     textLabel.text=title;
-    [textLabel setTag:100];
     [self.navigationController.view addSubview:textLabel];
 }
 -(UIFont *)defaultFont{
