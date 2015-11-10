@@ -13,36 +13,21 @@
 static NSString *const kProvinceName=@"provinceName";
 static NSString *const kProvinceId=@"provinceId";
 static NSString *const kProvinceEntity=@"Province";
-@interface ProvinceViewController()
-{
-    NSMutableArray *provinceList;
-}
-@end
+
+
 
 @implementation ProvinceViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
-    //[self showError];
+    
+    kId=@"provinceId";
+    kName=@"provinceName";
+    [self setTitle:@"省"];
+
     [self loadData];
 }
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [[self.navigationController.view viewWithTag:100]removeFromSuperview];
-    [self setTitle:@"省"];
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell=[self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.textLabel.text=[provinceList[indexPath.row] valueForKey:kProvinceName];
-    cell.detailTextLabel.text=[provinceList[indexPath.row] valueForKey:kProvinceId];
-    return cell;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return provinceList.count;
-}
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return  1;
-}
 
+#pragma mark 加载和保存需要的数据
 -(void)loadData{
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
@@ -53,11 +38,11 @@ static NSString *const kProvinceEntity=@"Province";
     [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     NSArray *fetchResult=[context executeFetchRequest:request error:nil];
     if(fetchResult.count>0){
-        provinceList=[[NSMutableArray alloc]init];
+        dataList=[[NSMutableArray alloc]init];
         for(NSManagedObject *item in fetchResult){
             NSDictionary *dic=@{kProvinceId:[item valueForKey:kProvinceId],
                                 kProvinceName:[item valueForKey:kProvinceName]};
-            [provinceList addObject:dic];
+            [dataList addObject:dic];
         }
         return;
     }
@@ -65,7 +50,7 @@ static NSString *const kProvinceEntity=@"Province";
 }
 -(void) getProvinceDataFromServer{
     [self showLoading];
-    provinceList=[[NSMutableArray alloc] init];
+    dataList=[[NSMutableArray alloc] init];
     AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
     manager.responseSerializer=[[AFHTTPResponseSerializer alloc]init];
     [manager GET:@"http://www.weather.com.cn/data/list3/city.xml?level=1"
@@ -91,7 +76,7 @@ static NSString *const kProvinceEntity=@"Province";
         NSArray *tuple=[item componentsSeparatedByString:@"|"];
         if(tuple.count>=2){
             NSDictionary *dic=@{kProvinceId:tuple[0],kProvinceName:tuple[1]};
-            [provinceList addObject:dic];
+            [dataList addObject:dic];
             NSManagedObject* object=[NSEntityDescription insertNewObjectForEntityForName:kProvinceEntity inManagedObjectContext:context];
             [object setValue:tuple[0] forKey:kProvinceId];
             [object setValue:tuple[1] forKey:kProvinceName];
@@ -101,9 +86,15 @@ static NSString *const kProvinceEntity=@"Province";
     [appDelegate saveContext];
     
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    CityViewController *controller=segue.destinationViewController;
-    NSIndexPath *indexPath=[self.tableView indexPathForCell:sender];
-    controller.provinceId=provinceList[indexPath.row][kProvinceId];
+
+#pragma mark UITableViewDelegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CityViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"city"];
+    if(!self.searchController.active)
+        controller.provinceId=dataList[indexPath.row][kId];
+    else
+        controller.provinceId=searchResult[indexPath.row][kId];
+    [self.navigationController pushViewController:controller animated:YES];
 }
+
 @end

@@ -15,24 +15,22 @@ static NSString *const kProvinceId=@"provinceId";
 static NSString *const kCityId=@"cityId";
 static NSString *const kCityName=@"cityName";
 static NSString *const kCityEntity=@"City";
-@interface CityViewController()
-{
-    NSMutableArray* cityList;
-}
 
-@end
+NSString *kId=@"cityId";
+NSString *kName=@"cityName";
 
 @implementation CityViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    kId=@"cityId";
+    kName=@"cityName";
+    [self setTitle:@"市"];
+    
     [self loadData];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [[self.navigationController.view viewWithTag:100]removeFromSuperview];
-    [self setTitle:@"市"];
-}
+#pragma mark 加载和保存需要的数据
 -(void)loadData{
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
@@ -48,11 +46,11 @@ static NSString *const kCityEntity=@"City";
     NSArray *fetchResult=[context executeFetchRequest:request error:nil];
     
     if(fetchResult.count>0){
-        cityList=[[NSMutableArray alloc] init];
+        dataList=[[NSMutableArray alloc] init];
         for(NSManagedObject *item in fetchResult){
             NSDictionary *dic=@{kCityId:[item valueForKey:kCityId],
                                 kCityName:[item valueForKey:kCityName]};
-            [cityList addObject:dic];
+            [dataList addObject:dic];
         }
         return;
     }
@@ -60,7 +58,7 @@ static NSString *const kCityEntity=@"City";
 }
 -(void)getCityDataFromServer{
     [self showLoading];
-    cityList=[[NSMutableArray alloc]init];
+    dataList=[[NSMutableArray alloc]init];
     AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
     manager.responseSerializer=[[AFHTTPResponseSerializer alloc]init];
     NSString *request=[@"http://www.weather.com.cn/data/list3/city**.xml?level=2" stringByReplacingOccurrencesOfString:@"**" withString:self.provinceId];
@@ -86,7 +84,7 @@ static NSString *const kCityEntity=@"City";
         NSArray *tuple=[item componentsSeparatedByString:@"|"];
         if(tuple.count>=2){
             NSDictionary *dic=@{kCityId:tuple[0],kCityName:tuple[1]};
-            [cityList addObject:dic];
+            [dataList addObject:dic];
             NSManagedObject *object=[NSEntityDescription insertNewObjectForEntityForName:kCityEntity inManagedObjectContext:context];
             [object setValue:tuple[0] forKey:kCityId];
             [object setValue:tuple[1] forKey:kCityName];
@@ -96,21 +94,14 @@ static NSString *const kCityEntity=@"City";
     [self hideLoading];
     [appDelegate saveContext];
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return  1;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  cityList.count;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell=[self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.textLabel.text=cityList[indexPath.row][kCityName];
-    cell.detailTextLabel.text=cityList[indexPath.row][kCityId];
-    return cell;
-}
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    CountyViewController *controller=segue.destinationViewController;
-    NSIndexPath *indexPath=[self.tableView indexPathForCell:sender];
-    controller.cityId=cityList[indexPath.row][kCityId];
+
+#pragma mark UITableViewDelegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CountyViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"county"];
+    if(!self.searchController.active)
+        controller.cityId=dataList[indexPath.row][kId];
+    else
+        controller.cityId=searchResult[indexPath.row][kId];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 @end

@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseTableViewController:UITableViewController
+@interface BaseTableViewController:UIViewController<UISearchResultsUpdating,UITableViewDataSource,UITableViewDelegate>
+{
+    NSMutableArray *dataList;
+    NSMutableArray *searchResult;
+    NSString *kId;
+    NSString *kName;
+}
 -(void)showLoading;
 -(void)hideLoading;
 -(void)showError;
 -(void)hideError;
+
 -(void)setNavigationTitle:(NSString *)title;
+@property (strong,nonatomic)UISearchController *searchController;
+@property (strong,nonatomic)UITableView *tableView;
 @end

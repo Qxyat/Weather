@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
-@interface ProvinceViewController : BaseTableViewController
 
+@interface ProvinceViewController : BaseTableViewController
 
 @end
