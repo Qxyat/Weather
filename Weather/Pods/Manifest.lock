@@ -20,14 +20,23 @@ PODS:
   - AFNetworking/UIKit (2.6.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - HexColors (2.2.1)
+  - MJRefresh (3.0.1)
+  - TSMessages (0.9.12):
+    - HexColors (~> 2.2.0)
   - ViewDeck (2.4.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - MJRefresh
+  - TSMessages
   - ViewDeck (~> 2.4)
 
 SPEC CHECKSUMS:
   AFNetworking: 7f317038a9710cabfa43ec56396b307b45df72ab
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  MJRefresh: ca22bb7197c4a17a0491763773cd5cb106b2a810
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   ViewDeck: ed686005abd02e81c1d393704f14eb071f5d29b3
 
 COCOAPODS: 0.39.0

@@ -8,22 +8,26 @@
 
 #import "WeatherViewController.h"
 #import <AFNetworking.h>
+#import <MJRefresh.h>
 @interface WeatherViewController()
-@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *weatherScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 
 @end
 @implementation WeatherViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
-    //[self loadWeatherDataFromServer];
+    self.countyId=@"";
+    self.weatherScrollView.mj_header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadWeatherDataFromServer)];
+    [self refreshView];
 }
 -(void)refreshView{
-    [self loadWeatherDataFromServer];
+    [self.weatherScrollView.mj_header beginRefreshing];
 }
 -(void)loadWeatherDataFromServer{
-    [self showLoading];
-    NSString * request=[@"http://wthrcdn.etouch.cn/WeatherApi?citykey=101**" stringByReplacingOccurrencesOfString:@"**" withString:self.countyId];
+    //[self showLoading];
+    NSString * request=[@"http://www.weather.com.cn/data/cityinfo/101**.html" stringByReplacingOccurrencesOfString:@"**" withString:self.countyId];
     
     AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
     manager.responseSerializer=[[AFHTTPResponseSerializer alloc]init];
@@ -32,10 +36,10 @@
         ^(AFHTTPRequestOperation *operation,id response){
             NSString *text=[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
             self.temperatureLabel.text=text;
-            [self hideLoading];
+            [self.weatherScrollView.mj_header endRefreshing];
         } failure:^(AFHTTPRequestOperation *operation,NSError *error){
             NSLog(@"%@",error);
-            [self showError];
+            //[self showError];
         }];
 }
 -(void)showLoading{

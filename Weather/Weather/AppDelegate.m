@@ -10,7 +10,7 @@
 #import "ProvinceViewController.h"
 #import <AFNetworking.h>
 #import "WeatherViewController.h"
-
+#import <TSMessage.h>
 @interface AppDelegate ()
 @end
 
@@ -19,6 +19,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[AFNetworkReachabilityManager sharedManager]startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
+        if(status<=0){
+            [TSMessage showNotificationWithTitle:@"网络出现问题" subtitle:@"请检查您的网络连接" type:TSMessageNotificationTypeWarning];
+        }
+        else{
+            [TSMessage showNotificationWithTitle:@"网络连接正常"  type:TSMessageNotificationTypeSuccess];
+        }
+    
+    }];
+    
     self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
@@ -29,7 +39,6 @@
     self.deckViewController.leftSize=CGRectGetWidth([UIScreen mainScreen].bounds)*0.333;
     self.window.rootViewController=self.deckViewController;
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 
