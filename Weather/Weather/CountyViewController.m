@@ -26,7 +26,7 @@ static NSString *const kCountyEntity=@"County";
 
 #pragma mark 加载和保存需要的数据
 -(void)loadData{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
     NSFetchRequest *request=[[NSFetchRequest alloc]init];
     
@@ -69,7 +69,7 @@ static NSString *const kCountyEntity=@"County";
      }];
 }
 -(void)saveCountyData:(NSString*)countyData{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
     
     NSArray* counties=[countyData componentsSeparatedByString:@","];
@@ -91,7 +91,7 @@ static NSString *const kCountyEntity=@"County";
 
 #pragma mark UITableViewDelegate
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     
     WeatherViewController*controller=(WeatherViewController*)appDelegate.deckViewController.centerController;
     controller.countyId=dataList[indexPath.row][kId];

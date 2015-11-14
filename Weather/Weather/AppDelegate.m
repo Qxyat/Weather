@@ -11,6 +11,8 @@
 #import <AFNetworking.h>
 #import "WeatherViewController.h"
 #import <TSMessage.h>
+#import "WXApi.h"
+#import "WXApiObject.h"
 @interface AppDelegate ()
 @end
 
@@ -39,6 +41,9 @@
     self.deckViewController.leftSize=CGRectGetWidth([UIScreen mainScreen].bounds)*0.333;
     self.window.rootViewController=self.deckViewController;
     [self.window makeKeyAndVisible];
+    
+    //注册微信API
+    [WXApi registerApp:@"wx30cafe060d63ef5e"];
     return YES;
 }
 
@@ -65,6 +70,116 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+#pragma mark - WXApi
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL isSuc = [WXApi handleOpenURL:url delegate:self];
+    NSLog(@"url %@ isSuc %d",url,isSuc == YES ? 1 : 0);
+    return  isSuc;
+}
+-(void) onReq:(BaseReq*)req
+{
+    if([req isKindOfClass:[GetMessageFromWXReq class]])
+    {
+        // 微信请求App提供内容， 需要app提供内容后使用sendRsp返回
+        NSString *strTitle = [NSString stringWithFormat:@"微信请求App提供内容"];
+        NSString *strMsg = @"微信请求App提供内容，App要调用sendResp:GetMessageFromWXResp返回给微信";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 1000;
+        [alert show];
+    }
+    else if([req isKindOfClass:[ShowMessageFromWXReq class]])
+    {
+        ShowMessageFromWXReq* temp = (ShowMessageFromWXReq*)req;
+        WXMediaMessage *msg = temp.message;
+        
+        //显示微信传过来的内容
+        WXAppExtendObject *obj = msg.mediaObject;
+        
+        NSString *strTitle = [NSString stringWithFormat:@"微信请求App显示内容"];
+        NSString *strMsg = [NSString stringWithFormat:@"标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%lu bytes\n\n", msg.title, msg.description, obj.extInfo, (unsigned long)msg.thumbData.length];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else if([req isKindOfClass:[LaunchFromWXReq class]])
+    {
+        //从微信启动App
+        NSString *strTitle = [NSString stringWithFormat:@"从微信启动"];
+        NSString *strMsg = @"这是从微信启动的消息";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+       
+    }
+}
+
+-(void)setWXScene:(NSInteger) type{
+    switch (type) {
+        case 0:
+            wxScene=WXSceneSession;
+            break;
+        case 1:
+            wxScene=WXSceneTimeline;
+            break;
+        default:
+            wxScene=WXSceneSession;
+            break;
+    }
+}
+-(void) onResp:(BaseResp*)resp
+{
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        UIAlertAction *action=[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alertController=nil;
+        if(resp.errCode==0){
+            switch (wxScene) {
+                case WXSceneSession:
+                    alertController=[UIAlertController alertControllerWithTitle:nil message:@"微信朋友分享成功" preferredStyle:UIAlertControllerStyleAlert];
+                    break;
+                case WXSceneTimeline:
+                    alertController=[UIAlertController alertControllerWithTitle:nil message:@"微信朋友圈分享成功" preferredStyle:UIAlertControllerStyleAlert];
+                default:
+                    break;
+            }
+        }
+        else{
+            switch (wxScene) {
+                case WXSceneSession:
+                    alertController=[UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat: @"微信朋友分享失败，失败代码：%d",resp.errCode] preferredStyle:UIAlertControllerStyleAlert];
+                    break;
+                case WXSceneTimeline:
+                    alertController=[UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat: @"微信朋友圈分享失败，失败代码：%d",resp.errCode] preferredStyle:UIAlertControllerStyleAlert];
+                default:
+                    break;
+            }
+        }
+        
+        if(alertController!=nil){
+            [alertController addAction:action];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+        }
+    }
+}
+- (void) sendTextContent
+{
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.text = @"测试";
+    req.bText = YES;
+    req.scene = wxScene;
+    
+    [WXApi sendReq:req];
 }
 
 #pragma mark - Core Data stack

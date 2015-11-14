@@ -23,7 +23,7 @@ extern NSString * kId;
     _searchController.hidesNavigationBarDuringPresentation=NO;
     _searchController.dimsBackgroundDuringPresentation=NO;
     
-    self.tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, width, 560)];
+    self.tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, width, CGRectGetHeight([UIScreen mainScreen].bounds))];
     [self.tableView setDataSource:self];
     [self.tableView setDelegate:self];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -67,7 +67,7 @@ extern NSString * kId;
     error.frame=CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds));
     [[UIApplication sharedApplication].keyWindow addSubview:error];
     UILabel *errorLabel=[error viewWithTag:1];
-    NSLog(@"%d",[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus);
+    NSLog(@"%ld",(long)([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus));
     if(![AFNetworkReachabilityManager sharedManager].reachable){
         errorLabel.text=@"请检查您的网络连接!";
     }

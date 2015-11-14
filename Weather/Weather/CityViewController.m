@@ -32,7 +32,7 @@ NSString *kName=@"cityName";
 
 #pragma mark 加载和保存需要的数据
 -(void)loadData{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
     NSFetchRequest *request=[[NSFetchRequest alloc]init];
     
@@ -75,7 +75,7 @@ NSString *kName=@"cityName";
      ];
 }
 -(void)saveCityData:(NSString *)cityData{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
     
     NSArray *cities=[cityData componentsSeparatedByString:@","];

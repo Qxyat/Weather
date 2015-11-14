@@ -29,7 +29,7 @@ static NSString *const kProvinceEntity=@"Province";
 
 #pragma mark 加载和保存需要的数据
 -(void)loadData{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
     NSFetchRequest *request=[[NSFetchRequest alloc]init];
     NSEntityDescription *description=[NSEntityDescription entityForName:kProvinceEntity inManagedObjectContext:context];
@@ -67,7 +67,7 @@ static NSString *const kProvinceEntity=@"Province";
      ];
 }
 -(void) saveProvinceData:(NSString *)provinceData{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     NSManagedObjectContext *context=appDelegate.managedObjectContext;
     
     NSArray *provinces=[provinceData componentsSeparatedByString:@","];

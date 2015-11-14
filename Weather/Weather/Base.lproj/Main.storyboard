@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
-        <!--天气-->
+        <!--Title-->
         <scene sceneID="CnY-Pc-88K">
             <objects>
                 <viewController storyboardIdentifier="weather" id="YFD-Bf-ASL" customClass="WeatherViewController" sceneMemberID="viewController">
@@ -13,15 +13,15 @@
                         <viewControllerLayoutGuide type="top" id="IgA-AK-Clm"/>
                         <viewControllerLayoutGuide type="bottom" id="xFx-OC-0rQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ome-tg-3VI">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ome-tg-3VI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BAA-TP-CvL">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BAA-TP-CvL">
+                                <rect key="frame" x="0.0" y="52" width="320" height="516"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjP-wQ-ibY">
-                                        <rect key="frame" x="31" y="89" width="258" height="286"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="卧槽，你简直是在搞笑" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjP-wQ-ibY">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="516"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -30,11 +30,19 @@
                                 </subviews>
                                 <animations/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H42-If-CJu">
+                                <rect key="frame" x="268" y="20" width="32" height="30"/>
+                                <animations/>
+                                <state key="normal" backgroundImage="ShareIcon"/>
+                                <connections>
+                                    <action selector="shareMediaButtonPressed:" destination="YFD-Bf-ASL" eventType="touchUpInside" id="YNS-dE-fYn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="天气" id="1E6-yk-OjA"/>
+                    <navigationItem key="navigationItem" title="Title" id="Tkp-oB-kJF"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="temperatureLabel" destination="DjP-wQ-ibY" id="U05-gh-t9W"/>
@@ -44,6 +52,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yaz-cJ-vW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1025" y="1036"/>
+        </scene>
+        <!--Share Media View Controller-->
+        <scene sceneID="ohZ-hR-6Do">
+            <objects>
+                <viewController storyboardIdentifier="shareMediaController" id="r2R-Td-4ZR" customClass="ShareMediaViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nhR-9W-VXG"/>
+                        <viewControllerLayoutGuide type="bottom" id="hRL-Ew-bmT"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.5" contentMode="scaleToFill" id="PKw-bn-gOy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8b-Qy-i1I">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="457"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1hS-pM-q9i" customClass="UIControl">
+                                <rect key="frame" x="0.0" y="457" width="320" height="111"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uwZ-xa-Wet" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-678" y="1036"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l4W-bZ-1C3">
@@ -125,4 +165,7 @@
             <point key="canvasLocation" x="6" y="401"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ShareIcon" width="63" height="60"/>
+    </resources>
 </document>

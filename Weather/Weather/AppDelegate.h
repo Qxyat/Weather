@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <ViewDeck.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
+#import "WXApi.h"
+@interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
+{
+    enum WXScene wxScene;
+}
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) IIViewDeckController *deckViewController;
 
@@ -21,7 +23,7 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
-
+- (void) sendTextContent;
+- (void)setWXScene:(NSInteger)type;
 @end
 

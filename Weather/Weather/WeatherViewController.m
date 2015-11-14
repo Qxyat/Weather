@@ -9,11 +9,16 @@
 #import "WeatherViewController.h"
 #import <AFNetworking.h>
 #import <MJRefresh.h>
+#import "AppDelegate.h"
 @interface WeatherViewController()
 
 @property (weak, nonatomic) IBOutlet UIScrollView *weatherScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
+@property (strong,nonatomic) UIPopoverController *popoverController;
+@property (strong,nonatomic) UIAlertController *alertController;
 
+@property (strong,nonatomic) UIView *middleView;
+@property (strong,nonatomic) UIView *shareMediaView;
 @end
 @implementation WeatherViewController
 -(void)viewDidLoad{
@@ -33,14 +38,14 @@
     manager.responseSerializer=[[AFHTTPResponseSerializer alloc]init];
     manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/plain", @"text/html",@"text/xml",nil];
     [manager GET:request parameters:nil success:
-        ^(AFHTTPRequestOperation *operation,id response){
-            NSString *text=[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
-            self.temperatureLabel.text=text;
-            [self.weatherScrollView.mj_header endRefreshing];
-        } failure:^(AFHTTPRequestOperation *operation,NSError *error){
-            NSLog(@"%@",error);
-            //[self showError];
-        }];
+     ^(AFHTTPRequestOperation *operation,id response){
+         NSString *text=[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
+         self.temperatureLabel.text=text;
+         [self.weatherScrollView.mj_header endRefreshing];
+     } failure:^(AFHTTPRequestOperation *operation,NSError *error){
+         NSLog(@"%@",error);
+         //[self showError];
+     }];
 }
 -(void)showLoading{
     UIView *loading=[[NSBundle mainBundle]loadNibNamed:@"Loading" owner:nil options:nil][0];
@@ -68,6 +73,47 @@
 -(void)hideError{
     [[[UIApplication sharedApplication].keyWindow viewWithTag:3]removeFromSuperview];
     [self loadWeatherDataFromServer];
+}
+
+#pragma mark - 展示分享窗口
+- (IBAction)shareMediaButtonPressed:(id)sender{
+    self.middleView=[[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.middleView.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    self.middleView.alpha=0.5;
+    [self.view addSubview:self.middleView];
+    
+    NSArray *array=[[NSBundle mainBundle] loadNibNamed:@"shareMediaView" owner:self options:nil];
+    self.shareMediaView=[array lastObject];
+    int x=CGRectGetMidX([UIScreen mainScreen].bounds)-self.shareMediaView.frame.size.width/2;
+    int y=CGRectGetMidY([UIScreen mainScreen].bounds)-self.shareMediaView.frame.size.height/2;
+    [self.shareMediaView setFrame:CGRectMake(x, y, self.shareMediaView.frame.size.width, self.shareMediaView.frame.size.height)];
+    self.shareMediaView.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.01];
+    [self.view addSubview:self.shareMediaView];
+    
+    UIButton *cancleButton=[self.shareMediaView viewWithTag:10];
+    [cancleButton addTarget:self action:@selector(cancleShareMedia) forControlEvents:UIControlEventTouchUpInside];
+ 
+    UIButton *shareWXSessionButton=[self.shareMediaView viewWithTag:1];
+    [shareWXSessionButton addTarget:self action:@selector(shareToWXSession) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *shareWXTimeLineButton=[self.shareMediaView viewWithTag:2];
+    [shareWXTimeLineButton addTarget:self action:@selector(shareToWXTimeLine) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)shareToWXSession {
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate setWXScene:0];
+    [appDelegate sendTextContent];
+}
+- (void)shareToWXTimeLine{
+    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
+    [appDelegate setWXScene:1];
+    [appDelegate sendTextContent];
+
+}
+-(void)cancleShareMedia{
+    [self.middleView removeFromSuperview];
+    [self.shareMediaView removeFromSuperview];
 }
 
 @end
