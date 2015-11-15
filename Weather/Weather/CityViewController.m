@@ -97,15 +97,19 @@ NSString *kName=@"cityName";
 
 #pragma mark UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==0){
-        [self showLocatedCityWeather];
+    CountyViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"county"];
+    if(!self.searchController.active){
+        if(indexPath.section==0){
+            [self showLocatedCityWeather];
+        }
+        else{
+            controller.cityId=dataList[indexPath.row][kId];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        
     }
     else{
-        CountyViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"county"];
-        if(!self.searchController.active)
-            controller.cityId=dataList[indexPath.row][kId];
-        else
-            controller.cityId=searchResult[indexPath.row][kId];
+        controller.cityId=searchResult[indexPath.row][kId];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }

@@ -89,15 +89,18 @@ static NSString *const kProvinceEntity=@"Province";
 
 #pragma mark UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==0){
-        [self showLocatedCityWeather];
+    CityViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"city"];
+    if(!self.searchController.active){
+        if(indexPath.section==0){
+            [self showLocatedCityWeather];
+        }
+        else{
+            controller.provinceId=dataList[indexPath.row][kId];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     }
     else{
-        CityViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"city"];
-        if(!self.searchController.active)
-            controller.provinceId=dataList[indexPath.row][kId];
-        else
-            controller.provinceId=searchResult[indexPath.row][kId];
+        controller.provinceId=searchResult[indexPath.row][kId];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
