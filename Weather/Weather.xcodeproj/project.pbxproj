@@ -26,6 +26,8 @@
 		418E4CBB1BEF1C94003409C9 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418E4CBA1BEF1C94003409C9 /* CityViewController.m */; };
 		418E4CBE1BEF2CB0003409C9 /* CountyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418E4CBD1BEF2CB0003409C9 /* CountyViewController.m */; };
 		418E4CC11BEF4198003409C9 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 418E4CC01BEF4198003409C9 /* WeatherViewController.m */; };
+		41DCE79C1BF82C2B00A07DFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DCE79B1BF82C2B00A07DFE /* CoreLocation.framework */; };
+		41DCE7C11BF856F800A07DFE /* locateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41DCE7C01BF856F800A07DFE /* locateCell.xib */; };
 		41F2730D1BF0C3F500A3577C /* Loading.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41F2730C1BF0C3F500A3577C /* Loading.xib */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		418E4CBD1BEF2CB0003409C9 /* CountyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountyViewController.m; sourceTree = "<group>"; };
 		418E4CBF1BEF4198003409C9 /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
 		418E4CC01BEF4198003409C9 /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
+		41DCE79B1BF82C2B00A07DFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		41DCE7C01BF856F800A07DFE /* locateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = locateCell.xib; sourceTree = "<group>"; };
 		41F2730C1BF0C3F500A3577C /* Loading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loading.xib; sourceTree = "<group>"; };
 		5278E8CF6C3A8B948E014A50 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECD0D72DE5298A659914BB46 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41DCE79C1BF82C2B00A07DFE /* CoreLocation.framework in Frameworks */,
 				41552FBD1BF4BAA000B639D9 /* libz.tbd in Frameworks */,
 				41552FBB1BF4BA9100B639D9 /* libc++.tbd in Frameworks */,
 				41552FB91BF4BA8300B639D9 /* libsqlite3.0.tbd in Frameworks */,
@@ -131,6 +136,7 @@
 				412C359F1BEDEDE30042EE13 /* Main.storyboard */,
 				412C35A71BEDEDE30042EE13 /* LaunchScreen.storyboard */,
 				417021001BF744D5002E47D3 /* shareMediaView.xib */,
+				41DCE7C01BF856F800A07DFE /* locateCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -182,6 +188,7 @@
 		C2EA5793C487C27AB6266031 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41DCE79B1BF82C2B00A07DFE /* CoreLocation.framework */,
 				41552FBC1BF4BAA000B639D9 /* libz.tbd */,
 				41552FBA1BF4BA9100B639D9 /* libc++.tbd */,
 				41552FB81BF4BA8300B639D9 /* libsqlite3.0.tbd */,
@@ -255,6 +262,7 @@
 				417021011BF744D5002E47D3 /* shareMediaView.xib in Resources */,
 				412C35A91BEDEDE30042EE13 /* LaunchScreen.storyboard in Resources */,
 				412C35A61BEDEDE30042EE13 /* Assets.xcassets in Resources */,
+				41DCE7C11BF856F800A07DFE /* locateCell.xib in Resources */,
 				412C35A11BEDEDE30042EE13 /* Main.storyboard in Resources */,
 				41F2730D1BF0C3F500A3577C /* Loading.xib in Resources */,
 				413E97F71BEE37DA00C1456A /* Error.xib in Resources */,

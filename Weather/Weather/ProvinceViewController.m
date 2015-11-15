@@ -23,7 +23,7 @@ static NSString *const kProvinceEntity=@"Province";
     kId=@"provinceId";
     kName=@"provinceName";
     [self setTitle:@"省"];
-
+    
     [self loadData];
 }
 
@@ -89,12 +89,17 @@ static NSString *const kProvinceEntity=@"Province";
 
 #pragma mark UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CityViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"city"];
-    if(!self.searchController.active)
-        controller.provinceId=dataList[indexPath.row][kId];
-    else
-        controller.provinceId=searchResult[indexPath.row][kId];
-    [self.navigationController pushViewController:controller animated:YES];
+    if(indexPath.section==0){
+        [self showLocatedCityWeather];
+    }
+    else{
+        CityViewController *controller=[self.storyboard instantiateViewControllerWithIdentifier:@"city"];
+        if(!self.searchController.active)
+            controller.provinceId=dataList[indexPath.row][kId];
+        else
+            controller.provinceId=searchResult[indexPath.row][kId];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 @end

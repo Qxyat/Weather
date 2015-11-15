@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BaseTableViewController:UIViewController<UISearchResultsUpdating,UITableViewDataSource,UITableViewDelegate>
+#import <CoreLocation/CoreLocation.h>
+@interface BaseTableViewController:UIViewController<UISearchResultsUpdating,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate>
 {
     NSMutableArray *dataList;
     NSMutableArray *searchResult;
@@ -21,6 +21,8 @@
 -(void)hideError;
 
 -(void)setNavigationTitle:(NSString *)title;
+
+-(void)showLocatedCityWeather;
 @property (strong,nonatomic)UISearchController *searchController;
 @property (strong,nonatomic)UITableView *tableView;
 @end

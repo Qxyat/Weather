@@ -91,12 +91,17 @@ static NSString *const kCountyEntity=@"County";
 
 #pragma mark UITableViewDelegate
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
-    
-    WeatherViewController*controller=(WeatherViewController*)appDelegate.deckViewController.centerController;
-    controller.countyId=dataList[indexPath.row][kId];
-    
-    [controller refreshView];
+    if(indexPath.section==0){
+        [self showLocatedCityWeather];
+    }
+    else{
+        AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
+        
+        WeatherViewController*controller=(WeatherViewController*)appDelegate.deckViewController.centerController;
+        controller.countyId=dataList[indexPath.row][kId];
+        
+        [controller refreshView];
+    }
 }
 
 @end
