@@ -19,28 +19,45 @@
 
 @property (strong,nonatomic) UIView *middleView;
 @property (strong,nonatomic) UIView *shareMediaView;
+
+@property (strong,nonatomic) NSString*requestURL;
 @end
 @implementation WeatherViewController
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.countyId=@"";
+    self.cityName=[[NSUserDefaults standardUserDefaults]valueForKey:@"locateCity"];
+    self.refreashWay=0;
     self.weatherScrollView.mj_header=[MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadWeatherDataFromServer)];
-    [self refreshView];
+    if(self.cityName!=nil)
+        [self refreshView];
 }
 -(void)refreshView{
     [self.weatherScrollView.mj_header beginRefreshing];
 }
 -(void)loadWeatherDataFromServer{
     //[self showLoading];
-    NSString * request=[@"http://www.weather.com.cn/data/cityinfo/101**.html" stringByReplacingOccurrencesOfString:@"**" withString:self.countyId];
-    
+    NSString * request;
+    if(self.refreashWay==0){
+        request=[@"http://wthrcdn.etouch.cn/weather_mini?city=**" stringByReplacingOccurrencesOfString:@"**" withString:self.cityName];
+        request=[request stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
+    else{
+        request=[@"http://wthrcdn.etouch.cn/weather_mini?citykey=101**" stringByReplacingOccurrencesOfString:@"**" withString:self.countyId];
+    }
+    self.requestURL=request;
     AFHTTPRequestOperationManager *manager=[AFHTTPRequestOperationManager manager];
-    manager.responseSerializer=[[AFHTTPResponseSerializer alloc]init];
+    manager.requestSerializer=[[AFHTTPRequestSerializer alloc]init];
+    manager.responseSerializer=[[AFJSONResponseSerializer alloc]init];
     manager.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"text/plain", @"text/html",@"text/xml",nil];
     [manager GET:request parameters:nil success:
      ^(AFHTTPRequestOperation *operation,id response){
-         NSString *text=[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
-         self.temperatureLabel.text=text;
+//         NSString *text=[[NSString alloc]initWithData:response encoding:NSUTF8StringEncoding];
+         if([response count]<3)
+             self.temperatureLabel.text=@"暂无该地区天气!";
+         else{
+             self.temperatureLabel.text=response[@"data"][@"city"];
+         }
          [self.weatherScrollView.mj_header endRefreshing];
      } failure:^(AFHTTPRequestOperation *operation,NSError *error){
          NSLog(@"%@",error);

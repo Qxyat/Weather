@@ -98,6 +98,7 @@ static NSString *const kCountyEntity=@"County";
         AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
         
         WeatherViewController*controller=(WeatherViewController*)appDelegate.deckViewController.centerController;
+        controller.refreashWay=1;
         controller.countyId=dataList[indexPath.row][kId];
         
         [controller refreshView];

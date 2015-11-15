@@ -144,13 +144,21 @@ static NSString * const kLocateCity=@"locateCity";
         return searchResult.count;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return  2;
+    if(!self.searchController.active)
+        return 2;
+    else
+        return 1;
 }
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if(section==0)
-        return @"定位";
-    else
-        return @"区域列表";
+    if(!self.searchController.active){
+        if(section==0)
+            return @"定位";
+        else
+            return @"区域列表";
+    }
+    else{
+        return nil;
+    }
 }
 
 #pragma mark - 获取先前已经定位过的城市
@@ -167,7 +175,8 @@ static NSString * const kLocateCity=@"locateCity";
 -(void)showLocatedCityWeather{
     AppDelegate *appDelegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
     WeatherViewController *controller=(WeatherViewController*)appDelegate.deckViewController.centerController;
-    controller.countyId=@"101010";
+    controller.cityName=self.locateCity;
+    controller.refreashWay=0;
     [controller refreshView];
 }
 
@@ -200,15 +209,15 @@ static NSString * const kLocateCity=@"locateCity";
     }else{
         UIAlertController *controller=[UIAlertController alertControllerWithTitle:@"请确保打开定位" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionOpenLocation=[UIAlertAction actionWithTitle:@"前去打开定位" style:UIAlertActionStyleDefault
-            handler:^(UIAlertAction * _Nonnull action) {
-                NSURL *url=[NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                [[UIApplication sharedApplication] openURL:url];
-            }];
+                                                                 handler:^(UIAlertAction * _Nonnull action) {
+                                                                     NSURL *url=[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                                                                     [[UIApplication sharedApplication] openURL:url];
+                                                                 }];
         UIAlertAction *actionCancleLocation=[UIAlertAction actionWithTitle:@"暂不打开定位" style:UIAlertActionStyleCancel
-            handler:^(UIAlertAction * _Nonnull action){
-                self.locateCity=nil;
-                self.locateCityLabel.text=@"定位失败";
-            }];
+                                                                   handler:^(UIAlertAction * _Nonnull action){
+                                                                       self.locateCity=nil;
+                                                                       self.locateCityLabel.text=@"定位失败";
+                                                                   }];
         [controller addAction:actionOpenLocation];
         [controller addAction:actionCancleLocation];
         [self presentViewController:controller animated:YES completion:nil];
@@ -218,21 +227,21 @@ static NSString * const kLocateCity=@"locateCity";
     CLLocation *location=[locations lastObject];
     CLGeocoder *geocoder=[[CLGeocoder alloc]init];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-            if(error!=nil){
-                self.locateCity=nil;
-                self.locateCityLabel.text=@"定位失败";
-            }
-            if (placemarks.count>0) {
-                CLPlacemark *placeMark=[placemarks objectAtIndex:0];
-                self.locateCity=placeMark.locality;
-                if(self.locateCity==nil){
-                    self.locateCity=placeMark.administrativeArea;
-                }
-                self.locateCity=[self.locateCity stringByReplacingOccurrencesOfString:@"市" withString:@""];
-                [self saveUserDefaultsLocateCity];
-                [self.tableView reloadData];
-            }
+        if(error!=nil){
+            self.locateCity=nil;
+            self.locateCityLabel.text=@"定位失败";
         }
+        if (placemarks.count>0) {
+            CLPlacemark *placeMark=[placemarks objectAtIndex:0];
+            self.locateCity=placeMark.locality;
+            if(self.locateCity==nil){
+                self.locateCity=placeMark.administrativeArea;
+            }
+            self.locateCity=[self.locateCity stringByReplacingOccurrencesOfString:@"市" withString:@""];
+            [self saveUserDefaultsLocateCity];
+            [self.tableView reloadData];
+        }
+    }
      ];
     [manager stopUpdatingLocation];
 }

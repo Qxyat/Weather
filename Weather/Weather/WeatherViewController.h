@@ -10,5 +10,9 @@
 
 @interface WeatherViewController : UIViewController
 -(void)refreshView;
+
+@property int refreashWay;
+@property (strong,nonatomic)NSString *cityName;
 @property (strong,nonatomic)NSString *countyId;
+
 @end
